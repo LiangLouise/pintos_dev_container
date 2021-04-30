@@ -1,8 +1,11 @@
-FROM ubuntu:18.04
-MAINTAINER Thierry Sans <thierry.sans@utoronto.ca>
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/ubuntu/.devcontainer/base.Dockerfile
+
+# [Choice] Ubuntu version: bionic, focal
+ARG VARIANT="focal"
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     bash \
     build-essential \
     gdb \
@@ -18,8 +21,9 @@ RUN apt-get update \
     dos2unix \
     expect \
     rsync \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+    clang-format \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /pintos/src
 COPY ./src /pintos/src
@@ -34,10 +38,8 @@ RUN cd /pintos/src/misc && \
     sh ./bochs-2.6.11-build.sh /usr/local && \
     rm -f bochs-2.6.11.tar.gz
 
-RUN cd /pintos/src/utils && make
+# RUN cd /pintos/src/utils && make
 
-RUN cd /pintos/src/threads && make
+# RUN cd /pintos/src/threads && make
 
-CMD ["pintos"]
-
-
+# CMD ["pintos"]
