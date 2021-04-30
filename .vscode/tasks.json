@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "A1 compile",
+            "type": "shell",
+            "command": "make",
+            "options": {
+                "cwd": "${workspaceFolder}/src/threads"
+            }
+        },
+        {
+            "label": "Run Pintos in GDB mode",
+            "type": "shell",
+            "isBackground": true,
+            "dependsOn": [
+                "A1 compile"
+            ],
+            "command": "pintos --gdb -- run alarm-multiple",
+            "options": {
+                "cwd": "${workspaceFolder}/src/threads/build"
+            }
+        }
+    ]
+}
