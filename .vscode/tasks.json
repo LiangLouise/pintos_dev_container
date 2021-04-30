@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "A1 compile",
+            "label": "[A1] compile",
             "type": "shell",
             "command": "make",
             "options": {
@@ -10,16 +10,48 @@
             }
         },
         {
-            "label": "Run Pintos in GDB mode",
+            "label": "[A1] Run Test in GDB mode",
             "type": "shell",
             "isBackground": true,
-            "dependsOn": [
-                "A1 compile"
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": ".",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".",
+                        "endsPattern": ".",
+                    }
+                }
             ],
-            "command": "pintos --gdb -- run alarm-multiple",
+            "dependsOn": [
+                "[A1] compile"
+            ],
+            "command": "pintos --gdb -- run ${input:a1_test}",
             "options": {
                 "cwd": "${workspaceFolder}/src/threads/build"
             }
+        },
+        {
+            "label": "prepare debug",
+            "type": "shell",
+            "command": "sleep 6",
+            "dependsOn": [
+                "[A1] Run Test in GDB mode"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "a1_test",
+            "type": "promptString",
+            "description": "Name of the Test to Debug"
         }
     ]
 }
