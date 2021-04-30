@@ -33,23 +33,15 @@
             "dependsOn": [
                 "[A1] compile"
             ],
-            "command": "pintos --gdb -- run ${input:a1_test}",
+            "command": "pintos --gdb -- run ${input:test_name}",
             "options": {
                 "cwd": "${workspaceFolder}/src/threads/build"
             }
-        },
-        {
-            "label": "prepare debug",
-            "type": "shell",
-            "command": "sleep 6",
-            "dependsOn": [
-                "[A1] Run Test in GDB mode"
-            ]
         }
     ],
     "inputs": [
         {
-            "id": "a1_test",
+            "id": "test_name",
             "type": "promptString",
             "description": "Name of the Test to Debug"
         }
