@@ -4,26 +4,26 @@ A VSCode dev container enables you to use VSCode GUI to debug Pintos with GDB.
 
 ![example](./images/pintos_debug.png)
 
+Please note that this container is only tested on the Linux platform. There is no guarantee that it can work on other platforms.
+
 ## Get Started
 
-* Press [Use this template](https://github.com/LiangLouise/pintos_dev_container/generate) to create your own repository and then clone it.
-
+* Make sure Docker, VSCode and [Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) are installed
+* Press [Use this template](https://github.com/LiangLouise/pintos_dev_container/generate) to create your own repository and then clone it
 * Choose `Reopen in Container` in VScode. For details refer this [tut](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
-
 * Wait for container to be built
-
-* After the new VSCode window pops out, then you are good to go.
+* After the new VSCode window pops out, then you are good to go
 
 ## Debug a Test with VSCode
 
-* Insert breakpoints to the lines you want to debug;
+* Insert breakpoints to the lines you want to debug
 
-* Go to `Run and Debug` tab and press play button; 
+* Go to `Run and Debug` tab and press play button
 
 * Type the test name, e.g., `alarm-multiple
-` for Project 1,  you want to debug;
+` for Project 1,  you want to debug
 
-* Wait for the debug session to begin.
+* Wait for the debug session to begin
 
 Note that the current set up only works for Project 1. For later projects, please modify the arguments and working directory of the compile and run tasks in [tasks.json](./.vscode/tasks.json) to fit your need. And please also update the `program` entry in the [launch.json](.vscode/launch.json) to points to the `kernerl.o` you want to test.
 
