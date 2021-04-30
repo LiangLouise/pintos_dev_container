@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/src/threads/build/kernel.o",
             "preLaunchTask": "Run Pintos in GDB mode",
             "miDebuggerServerAddress": "localhost:1234",
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}/src",
             "environment": [],
             "externalConsole": false,
