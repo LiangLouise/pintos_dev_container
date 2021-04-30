@@ -13,7 +13,7 @@
 	"runArgs": [
 		"--rm"
 	],
-	// Only bind the ./src/ to /pintos in containers
+	// bind the workspace root to /pintos in containers
 	"workspaceMount": "source=${localWorkspaceFolder},target=/pintos,type=bind,consistency=cached",
 	"workspaceFolder": "/pintos",
 	// Set *default* container specific settings.json values on container create.
