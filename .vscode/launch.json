@@ -23,11 +23,15 @@
                     "ignoreFailures": true
                 },
                 {
-                    "text": "-x ${workspaceFolder}/src/misc/gdb-macros",
+                    "text": "source -v ${workspaceFolder}/src/misc/gdb-macros",
                     "description": "Import Pintos GDB macros file",
-                    "ignoreFailures": true
+                    "ignoreFailures": false
                 }
-            ]
+            ],
+            "symbolLoadInfo": {
+                "loadAll": true,
+                "exceptionList": ""
+            }
         }
     ]
 }
