@@ -42,4 +42,4 @@ RUN cd /pintos/src/misc && \
 
 # RUN cd /pintos/src/threads && make
 
-# CMD ["pintos"]
+CMD ["bash"]
