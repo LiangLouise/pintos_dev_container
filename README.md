@@ -25,6 +25,10 @@ Note that the current set up only works for Project 1. For later projects, pleas
 
 For details about how to write your own `tasks.json` and `launch.json`, please refer to the docs of VSCode.
 
+### User-defined Macros
+
+To use user-defined Macros in [E.5.1 Using GDB](https://thierrysans.me/CSCC69/projects/WWW/pintos_10.html#SEC152), you can open the debug console tab and type the command in the panel with prefix `-exec`. For example, to run command `dumplist`, type `-exec dumplist &all_list thread allelem` and press Enter.
+
 ## Formatting
 
 The formatting style of Pintos as recommended in the [Coding Standards](https://thierrysans.me/CSCC69/projects/WWW/pintos_8.html#SEC138) is GNU style. Thus this dev container uses [clang-format](https://clang.llvm.org/docs/ClangFormat.html) to format the source code automatically via. a VSCode extension [Clang-Format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format).
@@ -36,3 +40,5 @@ You may override the settings in [settings.json](./.vscode/settings.json) to dis
 * [Debug Pintos using GDB](https://thierrysans.me/CSCC69/projects/WWW/pintos_10.html#SEC151)
 
 * [VSCode C/C++ Debug](https://code.visualstudio.com/docs/cpp/cpp-debug)
+
+* [Debug helloworld.cpp](https://code.visualstudio.com/docs/cpp/config-linux#_debug-helloworldcpp)
