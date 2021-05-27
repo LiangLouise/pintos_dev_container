@@ -33,7 +33,7 @@
             "dependsOn": [
                 "[A1] compile"
             ],
-            "command": "pintos --gdb -- run ${input:test_name}",
+            "command": "pintos -v -k -T 60 --bochs --gdb  -- -q  run ${input:test_name}",
             "options": {
                 "cwd": "${workspaceFolder}/src/threads/build"
             }
