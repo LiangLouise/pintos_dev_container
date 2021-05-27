@@ -35,6 +35,35 @@ The formatting style of Pintos as recommended in the [Coding Standards](https://
 
 You may override the settings in [settings.json](./.vscode/settings.json) to disable formatting on save or change the formatter. You may also change the formatting style in the config file [.clang-format](./.clang-format) as your preference.
 
+## Working With Existing Pintos Repo
+
+If you have already cloned the repo from [CSCC69-Pintos](https://github.com/ThierrySans/CSCC69-Pintos), to enable using devcontainer and debug in VSCode:
+
+* Copy the entire directory [vscode](./vscode) to the root of your repo;
+* If you are using Dockerfile to build your own image, update the [dockerfile](https://github.com/LiangLouise/pintos_dev_container/blob/cee2d30a6bfacf4a94ab882adb1e828149b839aa/.devcontainer/devcontainer.json#L6) to the path that points to your own dockerfile;
+* If you are using image of `thierrysans/pintos` pulled from dockerhub, replace the content of devcontainer.json with
+```json
+{
+    "name": "demo",
+    "runArgs": [
+        "--rm"
+    ],
+    "image": "thierrysans/pintos",
+    "extensions": [
+        "ms-vscode.cpptools"
+    ],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/pintos,type=bind,consistency=cached",
+    "workspaceFolder": "/pintos",
+    // Set *default* container specific settings.json values on container create.
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+}
+```
+* Choose `Reopen in Container` in VScode, then you are good to go.
+
+Note that Clang-Format won't work if your dockerfile or image doesn't have `clang-format`.
+
 ## References
 
 * [Debug Pintos using GDB](https://thierrysans.me/CSCC69/projects/WWW/pintos_10.html#SEC151)
