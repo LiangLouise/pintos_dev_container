@@ -17,8 +17,10 @@ Note: If you are using Windows + WSL2, please ensure EOL is set to be `LF` for a
 ## Debug a Test with VSCode
 
 * Insert breakpoints to the lines you want to debug
-* Go to `Run and Debug` tab and press play button
-* Type the test name, e.g., `alarm-multiple` for Project 1,  you want to debug
+* Go to `Run and Debug` tab, select the configurations for the project you are working on, and press play button
+* Wait for compiling and in the prompt box
+  * for Project 1,  type the test name, e.g. `alarm-multiple`, you want to debug
+  * for Project 2, you need to test name twice for gdb to load user program symbols and pintos to run the test
 * Wait for the debug session to begin
 
 Note that the current set up only works for Project 1. For later projects, please modify the arguments and working directory of the compile and run tasks in [tasks.json](./.vscode/tasks.json) to fit your need. And please also update the `program` entry in the [launch.json](.vscode/launch.json) to points to the `kernerl.o` you want to test.
