@@ -38,8 +38,8 @@ RUN cd /pintos/src/misc && \
     sh ./bochs-2.6.11-build.sh /usr/local && \
     rm -f bochs-2.6.11.tar.gz
 
-# RUN cd /pintos/src/utils && make
+RUN cd /pintos/src/utils && make
 
-# RUN cd /pintos/src/threads && make
+RUN cd /pintos/src/threads && make
 
 CMD ["bash"]
