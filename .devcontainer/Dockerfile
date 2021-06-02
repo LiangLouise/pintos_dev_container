@@ -38,8 +38,8 @@ RUN cd /pintos/src/misc && \
     env SRCDIR=/pintos/src/misc PINTOSDIR=/pintos DSTDIR=/usr/local sh ./bochs-2.6.2-build.sh && \
     rm -f bochs-2.6.2.tar.gz
 
-# RUN cd /pintos/src/utils && make
+RUN cd /pintos/src/utils && make
 
-# RUN cd /pintos/src/threads && make
+RUN cd /pintos/src/threads && make
 
 CMD ["bash"]
