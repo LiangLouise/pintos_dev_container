@@ -72,7 +72,7 @@
         {
             "id": "test_name",
             "type": "promptString",
-            "description": "Name of the Test file containing the symbols"
+            "description": "Name of the program containing the symbols (e.g., args-multiple)"
         }
     ]
 }
