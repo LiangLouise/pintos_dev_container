@@ -35,8 +35,10 @@ Usually you may want to focus on some specific tests, then you could copy the pi
 
 For example, in project 3, if you want to debug `page-parallel`:
 
+<details>
+	<summary><code>launch.json/configurations</code></summary>
+	
 ```json
-// launch.json/configurations
 
 {
     "name": "[P3] Debug page-parallel",
@@ -51,45 +53,49 @@ For example, in project 3, if you want to debug `page-parallel`:
     "externalConsole": false,
     "MIMode": "gdb",
     "setupCommands": [
-        {
-            "description": "Enable pretty-printing for gdb",
-            "text": "-enable-pretty-printing",
-            "ignoreFailures": true
-        },
-        {
-            "text": "source -v ${workspaceFolder}/src/misc/gdb-macros",
-            "description": "Import Pintos GDB macros file",
-            "ignoreFailures": false
-        },
-        {
-            "text": "loadusersymbols ${workspaceFolder}/src/vm/build/tests/vm/child-linear",
-            "description": "Import user program",
-            "ignoreFailures": false
-        },
-        {
-            "text": "loadusersymbols ${workspaceFolder}/src/vm/build/tests/vm/page-parallel",
-            "description": "Import user program",
-            "ignoreFailures": false
-        }
+	{
+	    "description": "Enable pretty-printing for gdb",
+	    "text": "-enable-pretty-printing",
+	    "ignoreFailures": true
+	},
+	{
+	    "text": "source -v ${workspaceFolder}/src/misc/gdb-macros",
+	    "description": "Import Pintos GDB macros file",
+	    "ignoreFailures": false
+	},
+	{
+	    "text": "loadusersymbols ${workspaceFolder}/src/vm/build/tests/vm/child-linear",
+	    "description": "Import user program",
+	    "ignoreFailures": false
+	},
+	{
+	    "text": "loadusersymbols ${workspaceFolder}/src/vm/build/tests/vm/page-parallel",
+	    "description": "Import user program",
+	    "ignoreFailures": false
+	}
     ],
     "symbolLoadInfo": {
-        "loadAll": true,
-        "exceptionList": ""
+	"loadAll": true,
+	"exceptionList": ""
     }
 }
 ```
 
+</details>
+
 and 
 
+<details>
+	<summary><code>tasks.json/tasks</code></summary>
+	
 ```json
-// tasks.json/tasks
 
 {
     "label": "[P3] compile",
     "type": "shell",
     "command": "make",
     "options": {
-        "cwd": "${workspaceFolder}/src/vm"
+	"cwd": "${workspaceFolder}/src/vm"
     }
 },
 {
@@ -97,32 +103,34 @@ and
     "type": "shell",
     "isBackground": true,
     "problemMatcher": [
-        {
-            "pattern": [
-                {
-                    "regexp": ".",
-                    "file": 1,
-                    "location": 2,
-                    "message": 3
-                }
-            ],
-            "background": {
-                "activeOnStart": true,
-                "beginsPattern": ".",
-                "endsPattern": ".",
-            }
-        }
+	{
+	    "pattern": [
+		{
+		    "regexp": ".",
+		    "file": 1,
+		    "location": 2,
+		    "message": 3
+		}
+	    ],
+	    "background": {
+		"activeOnStart": true,
+		"beginsPattern": ".",
+		"endsPattern": ".",
+	    }
+	}
     ],
     "dependsOn": [
-        "[P3] compile"
+	"[P3] compile"
     ],
     "command": "pintos -v -k -T 60 --qemu --gdb --filesys-size=2 -p tests/vm/page-parallel -a page-parallel -p tests/vm/child-linear -a child-linear --swap-size=4 -- -q  -f run page-parallel",
     "options": {
-        "cwd": "${workspaceFolder}/src/vm/build"
+	"cwd": "${workspaceFolder}/src/vm/build"
     }
 }
 ```
-
+	
+</details>
+	
 ### User-defined Macros
 
 To use user-defined Macros in [E.5.1 Using GDB](https://thierrysans.me/CSCC69/projects/WWW/pintos_10.html#SEC152), you can open the debug console tab and type the command in the panel with prefix `-exec`. For example, to run command `dumplist`, type `-exec dumplist &all_list thread allelem` and press Enter.
