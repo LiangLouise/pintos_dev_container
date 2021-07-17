@@ -2,14 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/ubuntu
 {
 	"name": "pintos",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick an Ubuntu version: focal, bionic
-		"args": {
-			"VARIANT": "bionic"
-		},
-		"context": ".."
-	},
+	"image": "liangroy/pintos_dev_container:latest",
 	"runArgs": [
 		"--rm"
 	],

@@ -9,31 +9,37 @@ A VSCode dev container enables you to use VSCode GUI to debug Pintos with GDB.
 * Make sure Docker, VSCode and [Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) are installed
 * Press [Use this template](https://github.com/LiangLouise/pintos_dev_container/generate) to create your own repository and then clone it
 * Choose `Reopen in Container` in VScode. For details refer this [tut](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
-* Wait for container to be built
+* Wait for container to be pulled.
 * After the new VSCode window pops out, then you are good to go
 
 Note: If you are using Windows + WSL2, please ensure EOL is set to be `LF` for all text files, otherwise shell scripts won't be executed normally when docker building the image. This can be done by updating the config of git `core.autocrlf`. For details, please follow this [post](https://stackoverflow.com/a/13154031).
 
-## Debug a Test with VSCode
+## Debug Tests with VSCode
+
+### Basic Guide
+
+#### Project 1
 
 * Insert breakpoints to the lines you want to debug
-* Go to `Run and Debug` tab, select the configurations for the project you are working on, and press play button
-* Wait for compiling and in the prompt box
-  * for Project 1, type the test name, e.g., `alarm-multiple`, you want to debug
-  * for Project 2, since we need load program and pass arguments to it: 
-	* First type the program name, e.g., `args-muliplte`, for gdb to load user program symbols
-	* Then type the program name for pintos file system to load (e.g., `args-multiple`.)
-	* Finally type the task to run which include the user program name and arguments to pass (e.g., `args-multiple some arguments for you!`)
+* Go to `Run and Debug` tab, select the configurations `[P1] Debug a Test`, and press play button
+* Wait for compiling and in the prompt box and type the test name, e.g., `alarm-multiple`, you want to debug
 
-For later projects, please modify the arguments and working directory of the compile and run tasks in [tasks.json](./.vscode/tasks.json) to fit your need. And please also update the `program` entry in the [launch.json](.vscode/launch.json) to points to the `kernerl.o` you want to test.
+#### Project 2 and following
 
-For details about how to write your own `tasks.json` and `launch.json`, please refer to the docs of VSCode.
+since we need load user programs and pass arguments to them: 
+
+* Insert breakpoints to the lines you want to debug
+* Go to `Run and Debug` tab, select the configurations for the test you are working on, and press play button	
+
+As many tests from Project 2 require multiple user programs (e.g., `exec-arg`) to be loaded, it would be more convinient for you to write the task for the testcase you are having troubles with so you can replay it quickly. See section [Debug a Specific Test](#Debug-a-Specific-Test)
+
+I left some examples for each project, so you can refer to them and write your owns. You will need to modify the arguments and working directory of the compile and run tasks in [tasks.json](./.vscode/tasks.json) to fit your need. And you also need update the entires `program` and `setupCommands` in the [launch.json](.vscode/launch.json) to points to the `kernerl.o` you want to test and ask GDB to load usersymbols.
 
 ### Debug a Specific Test
 
-Usually you may want to focus on some specific tests, then you could copy the pintos cmd from `make grade` and create a new task and launch job where input variables are replaced with binary file name and test name.
+You could copy the pintos cmd from `make grade` to see how grader run the test and create a new task and launch job.
 
-For example, in project 3, if you want to debug `page-parallel`:
+For example, in project 3, if you want to debug `page-parallel`, see comments in the code snippet to find what entires need update:
 
 <details>
 	<summary><code>launch.json/configurations</code></summary>
@@ -41,10 +47,13 @@ For example, in project 3, if you want to debug `page-parallel`:
 ```json
 
 {
+	// The name of the launch job
     "name": "[P3] Debug page-parallel",
     "type": "cppdbg",
     "request": "launch",
+	// Set the kernel.o you are working on
     "program": "${workspaceFolder}/src/vm/build/kernel.o",
+	// Set the current test's running task in tasks.json
     "preLaunchTask": "[P3] Run child-linear",
     "miDebuggerServerAddress": "localhost:1234",
     "stopAtEntry": false,
@@ -52,6 +61,7 @@ For example, in project 3, if you want to debug `page-parallel`:
     "environment": [],
     "externalConsole": false,
     "MIMode": "gdb",
+	//  set paths in loadusersymbols to the programs used in this test
     "setupCommands": [
 	{
 	    "description": "Enable pretty-printing for gdb",
@@ -99,6 +109,7 @@ and
     }
 },
 {
+	// The name of the running task
     "label": "[P3] Run child-linear",
     "type": "shell",
     "isBackground": true,
@@ -119,18 +130,23 @@ and
 	    }
 	}
     ],
+	// Set the current project's build task
     "dependsOn": [
 	"[P3] compile"
     ],
-    "command": "pintos -v -k -T 60 --qemu --gdb --filesys-size=2 -p tests/vm/page-parallel -a page-parallel -p tests/vm/child-linear -a child-linear --swap-size=4 -- -q  -f run page-parallel",
+	// Copy pintos cmd and add flag --gdb
+    "command": "pintos -v -k -T 60 --gdb --filesys-size=2 -p tests/vm/page-parallel -a page-parallel -p tests/vm/child-linear -a child-linear --swap-size=4 -- -q  -f run page-parallel",
     "options": {
-	"cwd": "${workspaceFolder}/src/vm/build"
+		// Set the current test's working task
+		"cwd": "${workspaceFolder}/src/vm/build"
     }
 }
 ```
 	
 </details>
 	
+For details about how to write your own `tasks.json` and `launch.json`, please refer to the docs of VSCode.
+
 ### User-defined Macros
 
 To use user-defined Macros in [E.5.1 Using GDB](https://thierrysans.me/CSCC69/projects/WWW/pintos_10.html#SEC152), you can open the debug console tab and type the command in the panel with prefix `-exec`. For example, to run command `dumplist`, type `-exec dumplist &all_list thread allelem` and press Enter.
@@ -139,30 +155,10 @@ To use user-defined Macros in [E.5.1 Using GDB](https://thierrysans.me/CSCC69/pr
 
 If you have already cloned the repo from [CSCC69-Pintos](https://github.com/ThierrySans/CSCC69-Pintos), to enable using devcontainer and debug in VSCode:
 
-* Copy the entire directory [.vscode](./vscode) to the root of your repo;
-* If you are using Dockerfile to build your own image, update the [dockerfile](https://github.com/LiangLouise/pintos_dev_container/blob/cee2d30a6bfacf4a94ab882adb1e828149b839aa/.devcontainer/devcontainer.json#L6) to the path that points to your own dockerfile;
-* If you are using image `thierrysans/pintos` pulled from dockerhub, replace the content of devcontainer.json with
-```json
-{
-    "name": "demo",
-    "runArgs": [
-        "--rm"
-    ],
-    "image": "thierrysans/pintos",
-    "extensions": [
-        "ms-vscode.cpptools"
-    ],
-    "workspaceMount": "source=${localWorkspaceFolder},target=/pintos,type=bind,consistency=cached",
-    "workspaceFolder": "/pintos",
-    // Set *default* container specific settings.json values on container create.
-    "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-    },
-}
-```
-* Choose `Reopen in Container` in VScode, then you are good to go.
+* Copy the entire directory [.vscode](./vscode) and [.devcontainer](./devcontainer) to the root of your repo;
+* If you are using image `thierrysans/pintos` pulled from dockerhub, replace the variable [image](https://github.com/LiangLouise/pintos_dev_container/blob/master/.devcontainer/devcontainer.json#L5) in devcontainer.json with `thierrysans/pintos`.
 
-Note that Clang-Format won't work if your dockerfile or image doesn't have `clang-format`.
+Note that Clang-Format won't work if your dockerfile or image doesn't have `clang-format` installed.
 
 ## Formatting
 
