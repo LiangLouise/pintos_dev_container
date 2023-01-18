@@ -143,7 +143,7 @@ sub set_align {
 #   ALIGN => 'bochs' (default), 'full', or 'none'
 #   GEOMETRY => {H => heads, S => sectors per track} (default 16, 63)
 #   FORMAT => 'partitioned' (default) or 'raw'
-#   LOADER => $LOADER_SIZE-byte string containing the loader.binary
+#   LOADER => $LOADER_SIZE-byte string containing the loader binary
 #   ARGS => ['arg 1', 'arg 2', ...]
 sub assemble_disk {
     my (%args) = @_;

@@ -34,9 +34,9 @@ ENV PATH=/pintos/src/utils:$PATH
 WORKDIR /pintos
 
 RUN cd /pintos/src/misc && \
-    wget --no-check-certificate https://sourceforge.net/projects/bochs/files/bochs/2.6.2/bochs-2.6.2.tar.gz && \
-    env SRCDIR=/pintos/src/misc PINTOSDIR=/pintos DSTDIR=/usr/local sh ./bochs-2.6.2-build.sh && \
-    rm -f bochs-2.6.2.tar.gz
+    wget --no-check-certificate https://sourceforge.net/projects/bochs/files/bochs/2.6.11/bochs-2.6.11.tar.gz && \
+    env SRCDIR=/pintos/src/misc PINTOSDIR=/pintos DSTDIR=/usr/local sh ./bochs-2.6.11-build.sh /usr/local && \
+    rm -f bochs-2.6.11.tar.gz
 
 RUN cd /pintos/src/utils && make
 
